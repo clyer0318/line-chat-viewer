@@ -123,7 +123,9 @@ function renderChat(keyword) {
 
     allMessages.forEach(item => {
         let isMatch = false;
-        let displayMsg = escapeHtml(item.msg);
+        let displayMsg = escapeHtml(item.msg); 
+        let displayDate = escapeHtml(item.date); // 對日期也進行轉義 xss防護
+        let displaySender = escapeHtml(item.sender);
         
         if (keyword && item.msg.toLowerCase().includes(keyword.toLowerCase())) {
             isMatch = true;
@@ -141,7 +143,7 @@ function renderChat(keyword) {
         if (item.date !== lastRenderedDate) {
             const dateDiv = document.createElement('div');
             dateDiv.className = 'date-divider';
-            dateDiv.innerHTML = `<span>${item.date}</span>`;
+            dateDiv.innerHTML = `<span>${displayDate}</span>`;
             chatContainer.appendChild(dateDiv);
             lastRenderedDate = item.date;
         }
@@ -155,7 +157,7 @@ function renderChat(keyword) {
         }
         
         let profilePicHtml = item.isMe ? '' : `<div class="profile-pic"></div>`;
-        let senderNameHtml = item.isMe ? '' : `<div class="sender-name">${item.sender}</div>`;
+        let senderNameHtml = item.isMe ? '' : `<div class="sender-name">${displaySender}</div>`;
         
         rowDiv.innerHTML = `
             ${profilePicHtml}
