@@ -1,0 +1,182 @@
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, '微軟正黑體', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.controls {
+    margin: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 470px;
+}
+.input-group {
+    margin-bottom: 12px;
+}
+.input-group label {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+.input-group input[type="text"], 
+.input-group input[type="file"],
+.input-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.search-bar input {
+    flex: 1;
+    margin-bottom: 0;
+}
+#matchDropdown {
+    margin-top: 8px;
+    display: none;
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+.btn-export {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+.btn-export:hover:not(:disabled) {
+    background-color: #45a049;
+}
+.btn-export:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+.chat-window {
+    width: 100%;
+    max-width: 500px;
+    height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    scroll-behavior: smooth;
+}
+.chat-container {
+    width: 100%;
+    background-color: #8da4be; 
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+.message-row {
+    display: flex;
+    margin-bottom: 15px;
+    width: 100%;
+    transition: background-color 0.5s;
+    border-radius: 8px;
+}
+.message-row.me {
+    justify-content: flex-end;
+}
+.message-row.other {
+    justify-content: flex-start;
+}
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+.message-content {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+.me .message-content {
+    align-items: flex-end;
+}
+.sender-name {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 4px;
+    margin-left: 5px;
+}
+.me .sender-name {
+    display: none; 
+}
+.bubble-wrapper {
+    display: flex;
+    align-items: flex-end;
+}
+.me .bubble-wrapper {
+    flex-direction: row-reverse;
+}
+.bubble {
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    position: relative;
+    transition: box-shadow 0.3s;
+}
+.other .bubble {
+    background-color: #ffffff;
+    border-top-left-radius: 4px;
+}
+.me .bubble {
+    background-color: #85e04f;
+    border-top-right-radius: 4px;
+}
+.time {
+    font-size: 11px;
+    color: #4a5c6d;
+    margin: 0 5px;
+    min-width: 35px;
+}
+.date-divider {
+    text-align: center;
+    margin: 20px 0;
+}
+.date-divider span {
+    background-color: rgba(0, 0, 0, 0.15);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+mark.search-match {
+    background-color: #ffeb3b;
+    color: black;
+    padding: 0 2px;
+    border-radius: 2px;
+}
+.active-row .bubble {
+    box-shadow: 0 0 0 4px #ff9800;
+}
+.warning-callout {
+  padding: 10px 16px;
+  margin: 10px 0;
+  background-color: #fef2f2; /* 淺紅底 */
+  border-left: 4px solid #ef4444; /* 紅色強調線 */
+  color: #991b1b;
+  font-size: 14px;
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LINE 對話復刻器</title>
+    <!-- 引入外部 CSS 樣式表 -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入 html2canvas 函式庫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- 引入外部 JavaScript，並設定 defer 確保在網頁載入後執行 -->
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+    <div class="controls">
+        <div class="input-group">
+            <label>1. 輸入你在對話中的顯示名稱：</label>
+            <input type="text" id="myName" value="" placeholder="例如：小明">
+        </div>
+        <div class="input-group">
+            <label>2. 選擇 LINE 的 .txt 備份檔：</label>
+            <input type="file" id="fileInput" accept=".txt">
+        </div>
+        <div class="input-group">
+            <label>3. 關鍵字搜尋 (按下 Enter 列出結果)：</label>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="輸入關鍵字按 Enter 搜尋..." disabled>
+            </div>
+            <select id="matchDropdown"></select>
+        </div>
+        
+        <button id="exportBtn" class="btn-export" disabled>📸 將當前對話匯出成圖片</button>
+
+        <p class="warning-callout">若對話太長，可能無法完整匯出</p>
+    </div>
+
+    <div class="chat-window">
+        <div class="chat-container" id="chat"></div>
+    </div>
+
+</body>
+</html>
