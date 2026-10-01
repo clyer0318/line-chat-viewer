@@ -1,6 +1,6 @@
 let allMessages = []; 
 
-// 監聽檔案上傳
+// 檔案上傳
 document.getElementById('fileInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
     const myName = document.getElementById('myName').value.trim();
@@ -23,14 +23,14 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
     reader.readAsText(file);
 });
 
-// 監聽搜尋輸入
+// 搜尋輸入
 document.getElementById('searchInput').addEventListener('keyup', function(e) {
     if (e.key === 'Enter') {
         performSearch();
     }
 });
 
-// 監聽下拉選單跳轉
+// 下拉選單跳轉
 document.getElementById('matchDropdown').addEventListener('change', function(e) {
     focusMatch(this.value);
 });
@@ -143,7 +143,12 @@ function renderChat(keyword) {
         if (item.date !== lastRenderedDate) {
             const dateDiv = document.createElement('div');
             dateDiv.className = 'date-divider';
-            dateDiv.innerHTML = `<span>${displayDate}</span>`;
+
+            const dateSpan = document.createElement('span');
+            dateSpan.textContent = item.date; //強迫把日期當作純文字塞進 <span> 裡面
+            dateDiv.appendChild(dateSpan);
+        
+            //dateDiv.innerHTML = `<span>${displayDate}</span>`;
             chatContainer.appendChild(dateDiv);
             lastRenderedDate = item.date;
         }
