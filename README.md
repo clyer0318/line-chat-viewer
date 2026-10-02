@@ -284,12 +284,8 @@ https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js
 
 ## 🚀 未來可能加入的功能
 
-- [ ] 支援圖片訊息
-- [ ] 支援貼圖
-- [ ] 支援影片 / 檔案訊息
 - [ ] 自訂聊天背景
 - [ ] 自訂頭像
-- [ ] 自訂聊天泡泡
 - [ ] 深色模式
 - [ ] 匯出 PDF
 - [ ] 大型聊天紀錄最佳化
