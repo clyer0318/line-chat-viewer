@@ -1,1 +1,11 @@
 *.txt
+
+#macos
+.DS_Store
+
+#VSCode
+.vscode/
+
+#Environment and secret
+.env
+.env.*
