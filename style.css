@@ -1,3 +1,8 @@
+/* 🛠️ 手機防跑版關鍵 1：所有的邊距都往內縮，不要撐破寬度 */
+* {
+    box-sizing: border-box; 
+}
+
 body {
     font-family: 'Helvetica Neue', Helvetica, Arial, '微軟正黑體', sans-serif;
     background-color: #f0f0f0;
@@ -5,19 +10,23 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px; /* 電腦版留點邊距 */
 }
+
 .controls {
-    margin: 20px;
     padding: 15px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 470px;
+    max-width: 500px;
+    margin-bottom: 15px;
 }
+
 .input-group {
     margin-bottom: 12px;
 }
+
 .input-group label {
     font-size: 14px;
     font-weight: bold;
@@ -25,44 +34,51 @@ body {
     margin-bottom: 5px;
     color: #333;
 }
+
+/* 🛠️ 手機防跑版關鍵 2：設定為 16px，防止 iPhone 點擊輸入框時自動放大畫面 */
 .input-group input[type="text"], 
 .input-group input[type="file"],
-.input-group select {
+.input-group input[type="date"],
+.input-group select,
+.btn-export {
     width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-family: inherit;
+    font-size: 16px !important; 
 }
+
 .search-bar {
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 100%;
+    flex-wrap: wrap; /* 空間不夠時允許換行 */
 }
+
 .search-bar input {
     flex: 1;
     margin-bottom: 0;
+    min-width: 0; /* 防止子元素把空間撐爆 */
 }
+
 #matchDropdown {
     margin-top: 8px;
     display: none;
     background-color: #f9f9f9;
     cursor: pointer;
 }
+
 .btn-export {
-    width: 100%;
-    padding: 10px;
     background-color: #4CAF50;
     color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
     transition: background-color 0.3s;
 }
+
 .btn-export:hover:not(:disabled) {
     background-color: #45a049;
 }
@@ -70,6 +86,8 @@ body {
     background-color: #cccccc;
     cursor: not-allowed;
 }
+
+/* 對話外框 */
 .chat-window {
     width: 100%;
     max-width: 500px;
@@ -77,13 +95,15 @@ body {
     overflow-y: auto;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     scroll-behavior: smooth;
+    border-radius: 8px;
+    background-color: #8da4be; 
 }
+
 .chat-container {
     width: 100%;
-    background-color: #8da4be; 
     padding: 20px 10px;
-    box-sizing: border-box;
 }
+
 .message-row {
     display: flex;
     margin-bottom: 15px;
@@ -97,6 +117,7 @@ body {
 .message-row.other {
     justify-content: flex-start;
 }
+
 .profile-pic {
     width: 40px;
     height: 40px;
@@ -105,14 +126,16 @@ body {
     margin-right: 10px;
     flex-shrink: 0;
 }
+
 .message-content {
-    max-width: 70%;
+    max-width: 75%;
     display: flex;
     flex-direction: column;
 }
 .me .message-content {
     align-items: flex-end;
 }
+
 .sender-name {
     font-size: 12px;
     color: #333;
@@ -122,6 +145,7 @@ body {
 .me .sender-name {
     display: none; 
 }
+
 .bubble-wrapper {
     display: flex;
     align-items: flex-end;
@@ -129,15 +153,17 @@ body {
 .me .bubble-wrapper {
     flex-direction: row-reverse;
 }
+
 .bubble {
     padding: 8px 12px;
     border-radius: 15px;
     font-size: 15px;
     line-height: 1.4;
-    word-wrap: break-word;
+    word-wrap: break-word; /* 避免很長的英文單字或網址超出泡泡 */
     position: relative;
     transition: box-shadow 0.3s;
 }
+
 .other .bubble {
     background-color: #ffffff;
     border-top-left-radius: 4px;
@@ -146,12 +172,14 @@ body {
     background-color: #85e04f;
     border-top-right-radius: 4px;
 }
+
 .time {
     font-size: 11px;
     color: #4a5c6d;
     margin: 0 5px;
     min-width: 35px;
 }
+
 .date-divider {
     text-align: center;
     margin: 20px 0;
@@ -163,6 +191,7 @@ body {
     border-radius: 20px;
     font-size: 12px;
 }
+
 mark.search-match {
     background-color: #ffeb3b;
     color: black;
@@ -172,11 +201,25 @@ mark.search-match {
 .active-row .bubble {
     box-shadow: 0 0 0 4px #ff9800;
 }
-.warning-callout {
-  padding: 10px 16px;
-  margin: 10px 0;
-  background-color: #fef2f2; /* 淺紅底 */
-  border-left: 4px solid #ef4444; /* 紅色強調線 */
-  color: #991b1b;
-  font-size: 14px;
+
+/* =========================================
+   📱 手機版專屬排版 (Media Query)
+   當螢幕寬度小於 600px 時，自動套用以下規則
+========================================= */
+@media (max-width: 600px) {
+    body {
+        padding: 0; /* 手機畫面小，把左右留白取消掉 */
+    }
+    .controls {
+        width: 95%; /* 控制面板稍微留一點點邊邊，比較好看 */
+        margin: 10px auto;
+    }
+    .chat-window {
+        width: 100%;
+        border-radius: 0; /* 對話框左右貼齊手機邊緣，營造真實 APP 的感覺 */
+        height: 65vh; /* 微調高度，確保螢幕小的時候不會被截斷 */
+    }
+    .message-content {
+        max-width: 85%; /* 手機比較窄，允許綠色泡泡稍微寬一點點 */
+    }
 }
