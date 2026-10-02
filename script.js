@@ -42,6 +42,10 @@ document.getElementById('exportBtn').addEventListener('click', function() {
     const chatWindow = document.querySelector('.chat-window');
     const chatContainer = document.getElementById('chat'); // 改為對內部實際裝載對話的容器截圖
     const originalText = this.innerText;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    // 行動瀏覽器通常不支援 a[download]。在點擊當下先開空白分頁，
+    // 避免圖片生成完成後才開分頁被瀏覽器的彈窗阻擋。
+    const imageTab = isMobile ? window.open('', '_blank') : null;
     
     this.innerText = "⏳ 圖片生成中，請稍候...";
     this.disabled = true;
@@ -63,10 +67,27 @@ document.getElementById('exportBtn').addEventListener('click', function() {
             windowWidth: chatContainer.scrollWidth,
             windowHeight: chatContainer.scrollHeight
         }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = 'LINE對話紀錄_匯出.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
+            canvas.toBlob(blob => {
+                if (!blob) {
+                    if (imageTab) imageTab.close();
+                    alert('無法產生圖片檔案，請縮小對話範圍後再試一次。');
+                    return;
+                }
+                const imageUrl = URL.createObjectURL(blob);
+
+                if (isMobile && imageTab) {
+                    // 手機開啟原圖後可長按儲存至相簿。
+                    imageTab.location.href = imageUrl;
+                } else if (isMobile) {
+                    alert('瀏覽器封鎖了圖片分頁，請允許彈出式視窗後再試一次。');
+                } else {
+                    const link = document.createElement('a');
+                    link.download = 'LINE對話紀錄_匯出.png';
+                    link.href = imageUrl;
+                    link.click();
+                    setTimeout(() => URL.revokeObjectURL(imageUrl), 60000);
+                }
+            }, 'image/png');
         }).catch(err => {
             console.error("匯出失敗", err);
             alert("匯出失敗！如果對話長達幾千行，可能已突破瀏覽器圖片大小的極限。建議先用關鍵字搜尋過濾對話後，再進行匯出。");
