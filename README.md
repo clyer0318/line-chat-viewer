@@ -32,7 +32,7 @@
 可以直接 Clone Repository：
 
 ```bash
-git clone https://github.com/你的帳號/你的Repository.git
+git clone https://github.com/clyer0318/line-chat-viewer.git
 ```
 
 進入專案：
